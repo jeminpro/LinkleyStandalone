@@ -1,0 +1,62 @@
+﻿<!doctype html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon"  href="./favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon"  href="./favicon.ico" type="image/x-icon" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/site.css">
+    <link href="./css/fontawesome/fontawesome-all.min.css" rel="stylesheet">
+    <!-- Scripts -->
+    <script src="./js/jquery/jquery-3.3.1.min.js"></script>
+    <script src="./js/popper/popper.min.js"></script>
+    <script src="./js/bootstrap/bootstrap.min.js"></script>
+    <script src="./js/angularjs/angular.min.js"></script>
+    <script src="./js/masonry/masonry.pkgd.min.js"></script>
+    <script src="./LinkleyData.js"></script>
+    <script src="./js/linkleyApp.js"></script>
+
+    <title>Linkley</title>
+</head>
+<body class="container" ng-app="linksApp"  ng-cloak >
+    <h1 class="heading">Linkley</h1>
+    <div class= "grid" ng-controller="linksController as linksCtrl">
+        
+        <div class="card m-0 rounded-0 grid-item" ng-repeat="groupLinks in linksCtrl.GroupLinks">
+            <div class="card-header rounded-0">
+                {{::groupLinks.groupName}}
+            </div>
+            <div class="card-body">
+                <div class="links" ng-repeat="links in ::groupLinks.links">
+                    <a href="{{::links.url}}" target="_blank" ng-if="::links.url" class="link" data-toggle="popover" data-content="{{::urlIsFile(links.url) ? linksCtrl.FileOrFolderMessage : ''}}">
+                        <div><i class="far {{::fileTypeIcon(links.url)}}" ng-if="::urlIsFile(links.url)"></i> {{::links.name}}</div>
+                        <div class="small text-muted">{{::links.description}}</div>
+                    </a>
+
+                    <div ng-if="::links.suburl" class="sub-link">
+                        <div>{{::links.name}}</div>
+                        <div class="small text-muted">{{::links.description}}</div>
+                        <a href="{{::suburl.url}}" target="_blank" class="badge mr-1 rounded-0" ng-repeat="suburl in ::links.suburl"  data-toggle="popover" data-content="{{::urlIsFile(suburl.url) ? linksCtrl.FileOrFolderMessage : ''}}">  
+                            <i class="far {{::fileTypeIcon(suburl.url)}}" ng-if="::urlIsFile(suburl.url)"></i> {{::suburl.subname.toUpperCase()}}
+                        </a>
+                    </div>
+
+                    <hr ng-if="::groupLinks.links.length - 1 !== $index" class="m-0" />
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+    
+</body>
+</html>
